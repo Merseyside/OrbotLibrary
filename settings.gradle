@@ -1,0 +1,13 @@
+include ':app', ':library'
+
+include ':RootCommands'
+project(':RootCommands').projectDir = new File('library/RootCommands')
+
+include ':jsocksAndroid'
+project(':jsocksAndroid').projectDir = new File('library/jsocksAndroid')
+
+include ':libnetcipher'
+project(':libnetcipher').projectDir = new File('library/libnetcipher')
+
+include ':orbotservice'
+project(':orbotservice').projectDir = new File('library/orbotservice')
