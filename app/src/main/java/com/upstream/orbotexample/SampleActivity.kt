@@ -6,7 +6,7 @@ import com.merseyside.admin.library.OrbotConstants
 import com.merseyside.admin.library.OrbotManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class SampleActivity : AppCompatActivity() {
 
     private lateinit var orbotManager : OrbotManager
 
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initTor() {
         orbotManager = OrbotManager.getInstance(OrbotApplication.getInstance())
-        orbotManager.setOnOrbotListener(object : OrbotManager.OrbotListener {
+        orbotManager.setOrbotListener(object : OrbotManager.OrbotListener {
             override fun onPercentsReceived(percents: Int) {
                 if (percents == 100) {
                     open_connection_button.isEnabled = true
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
 
             override fun onStatusChanged(status: String) {
-                this@MainActivity.torStatus = status
+                this@SampleActivity.torStatus = status
 
                 when (status) {
                     OrbotConstants.STATUS_OFF -> {
