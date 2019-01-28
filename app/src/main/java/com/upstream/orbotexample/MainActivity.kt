@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initTor() {
         orbotManager = OrbotManager.getInstance(OrbotApplication.getInstance())
-        orbotManager.setOnOrbotListener(object : OrbotManager.OrbotListener {
+        orbotManager.setOrbotListener(object : OrbotManager.OrbotListener {
             override fun onPercentsReceived(percents: Int) {
                 if (percents == 100) {
                     open_connection_button.isEnabled = true

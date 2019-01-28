@@ -1,0 +1,34 @@
+
+apply plugin: 'com.android.library'
+
+dependencies {
+	// If you want to fetch these from Maven, uncomment these lines and change
+	// the *.jar depend to exclude these libs:
+    implementation fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+	compileSdkVersion 25
+    buildToolsVersion '28.0.3'
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+
+	lintOptions {
+		abortOnError false
+	}
+
+        useLibrary 'org.apache.http.legacy'
+}
+repositories {
+    mavenCentral()
+}
