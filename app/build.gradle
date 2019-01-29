@@ -17,8 +17,32 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            signingConfig signingConfigs.debug
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def fileName = "orbot-release.apk"
+                    outputFileName = fileName
+                }
+            }
+        }
+
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
+
+            signingConfig signingConfigs.debug
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def fileName = "orbot-debug.apk"
+                    outputFileName = fileName
+                }
+            }
         }
     }
 }
