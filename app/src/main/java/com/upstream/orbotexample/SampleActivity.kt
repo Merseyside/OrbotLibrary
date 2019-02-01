@@ -10,8 +10,6 @@ class SampleActivity : AppCompatActivity() {
 
     private lateinit var orbotManager : OrbotManager
 
-    private var torStatus = OrbotConstants.STATUS_OFF
-
     private val networkUtils by lazy { NetworkUtils() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +32,11 @@ class SampleActivity : AppCompatActivity() {
             }
 
 
-            override fun onStatusChanged(status: String) {
-                this@SampleActivity.torStatus = status
+            /**
+            * Also you can call OrbotManager.getStatus()
+            */
 
+            override fun onStatusChanged(status: String) {
                 when (status) {
                     OrbotConstants.STATUS_OFF -> {
                         status_tw.text = "Disconnected"
