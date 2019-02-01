@@ -6,11 +6,9 @@ import com.merseyside.admin.library.OrbotConstants
 import com.merseyside.admin.library.OrbotManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class SampleActivity : AppCompatActivity() {
 
     private lateinit var orbotManager : OrbotManager
-
-    private var torStatus = OrbotConstants.STATUS_OFF
 
     private val networkUtils by lazy { NetworkUtils() }
 
@@ -34,9 +32,11 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-            override fun onStatusChanged(status: String) {
-                this@MainActivity.torStatus = status
+            /**
+            * Also you can call OrbotManager.getStatus()
+            */
 
+            override fun onStatusChanged(status: String) {
                 when (status) {
                     OrbotConstants.STATUS_OFF -> {
                         status_tw.text = "Disconnected"
