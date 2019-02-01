@@ -32,6 +32,10 @@ class OrbotManager private constructor(private val application : Application) {
 
     companion object {
 
+        private var torStatus: String = TorServiceConstants.STATUS_OFF
+
+        fun getStatus() : String = torStatus
+
         private var instance : OrbotManager? = null
 
         fun getInstance(application : Application? = null) : OrbotManager {
@@ -51,7 +55,6 @@ class OrbotManager private constructor(private val application : Application) {
 
     private var lastStatusIntent: Intent? = null
 
-    private var torStatus: String = TorServiceConstants.STATUS_OFF
 
     private lateinit var localBroadcastManager: LocalBroadcastManager
     private var proxyUtils: ProxyUtils = ProxyUtils()
