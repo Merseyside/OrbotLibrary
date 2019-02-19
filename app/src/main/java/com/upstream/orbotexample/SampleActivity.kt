@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.merseyside.admin.library.OrbotConstants
 import com.merseyside.admin.library.OrbotManager
 import kotlinx.android.synthetic.main.activity_main.*
+import java.net.SocketTimeoutException
 import java.util.*
 
 class SampleActivity : AppCompatActivity() {
@@ -92,7 +94,15 @@ class SampleActivity : AppCompatActivity() {
                 }
             })
 
-            networkUtils.openHttpConnection("https://www.propub3r6espa33w.onion/") //Put your URL here
+            try {
+                networkUtils.openHttpConnection("https://www.propub3r6espa33w.onion/") //Put your URL here
+            } catch (e : SocketTimeoutException) {
+                Toast.makeText(this, "Socket timeout", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        new_identity_button.setOnClickListener {
+            orbotManager.requestNewTorIdentity()
         }
 
         setCountrySpinner()

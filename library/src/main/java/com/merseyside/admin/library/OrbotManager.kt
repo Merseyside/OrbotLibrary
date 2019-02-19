@@ -36,10 +36,12 @@ class OrbotManager private constructor(private val application : Application) {
 
         private var torStatus: String = TorServiceConstants.STATUS_OFF
 
+        @JvmStatic
         fun getStatus() : String = torStatus
 
         private var instance : OrbotManager? = null
 
+        @JvmStatic
         fun getInstance(application : Application? = null) : OrbotManager {
             if (instance == null) {
                 if (application != null)
@@ -129,7 +131,7 @@ class OrbotManager private constructor(private val application : Application) {
                     }
 
                     if (torStatus != newTorStatus) {
-                        torStatus = newTorStatus
+                        torStatus = newTorStatus!!
                         updateStatus(newTorStatus)
                     }
 
@@ -283,6 +285,13 @@ class OrbotManager private constructor(private val application : Application) {
         intent.action = TorServiceConstants.CMD_SIGNAL_HUP
 
         sendIntentToService(intent)
+    }
+
+    fun requestNewTorIdentity() {
+        val newIdentityIntent = Intent(application, TorService::class.java)
+        newIdentityIntent.action = TorServiceConstants.CMD_NEWNYM
+
+        sendIntentToService(newIdentityIntent)
     }
 
 }
