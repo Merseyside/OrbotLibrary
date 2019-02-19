@@ -1,3 +1,17 @@
 <resources>
     <string name="application_name" translatable="false">OrbotExample</string>
+    <string name="bridges" translatable="false">Bridges</string>
+
+    <!--Entries-->
+    <string-array name="bridge_entries">
+        <item>Directly</item>
+        <item>Community</item>
+        <item>Cloud</item>
+    </string-array>
+
+    <string-array name="bridge_entry_values">
+        <item></item>
+        <item>obfs4</item>
+        <item>meek</item>
+    </string-array>
 </resources>

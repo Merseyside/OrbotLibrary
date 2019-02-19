@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:textSize="@dimen/horizontal_selector_text_size"
+        android:textColor="@color/horizontal_selector_button_color" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50"
+        android:orientation="horizontal"
+        android:gravity="end|center_vertical">
+
+        <ImageButton
+            android:id="@+id/prev"
+            android:layout_width="@dimen/horizontal_selector_view_size"
+            android:layout_height="@dimen/horizontal_selector_view_size"
+            android:background="@null"
+            android:adjustViewBounds="true"
+            android:minHeight="@dimen/horizontal_selector_view_size"
+            android:minWidth="@dimen/horizontal_selector_view_size"
+            android:scaleType="center"
+            tools:ignore="ContentDescription"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@drawable/horizontal_selector_chevron_left"/>
+
+        <ImageView
+            android:id="@+id/entry"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/horizontal_selector_view_size"
+            android:textSize="@dimen/horizontal_selector_text_size"
+            android:layout_toEndOf="@+id/prev"
+            android:layout_toStartOf="@id/next"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="@dimen/horizontal_selector_view_size"
+            android:layout_height="@dimen/horizontal_selector_view_size"
+            android:background="@null"
+            android:adjustViewBounds="true"
+            android:minHeight="@dimen/horizontal_selector_view_size"
+            android:minWidth="@dimen/horizontal_selector_view_size"
+            android:scaleType="center"
+            tools:ignore="ContentDescription"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/horizontal_selector_chevron_right"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

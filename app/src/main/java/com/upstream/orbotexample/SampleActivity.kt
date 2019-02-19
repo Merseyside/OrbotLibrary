@@ -1,12 +1,19 @@
 package com.upstream.orbotexample
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.merseyside.admin.library.OrbotConstants
 import com.merseyside.admin.library.OrbotManager
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class SampleActivity : AppCompatActivity() {
+
+    private val TAG = javaClass.simpleName
 
     private lateinit var orbotManager : OrbotManager
 
@@ -87,6 +94,78 @@ class SampleActivity : AppCompatActivity() {
 
             networkUtils.openHttpConnection("https://www.propub3r6espa33w.onion/") //Put your URL here
         }
+
+        setCountrySpinner()
+        setBridgeSelector()
+    }
+
+    private fun setCountrySpinner() {
+        val currentExitNode = orbotManager.getExitNode()
+
+        if (currentExitNode.length > 4) {
+            //someone put a complex value in, so let's disable
+            val cList = ArrayList<String>()
+            cList.add(0, currentExitNode)
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cList)
+            countrySpinner.adapter = adapter
+            countrySpinner.isEnabled = false
+        } else {
+            var selIdx = -1
+
+            val cList = ArrayList<String>()
+            cList.add(0, getString(R.string.vpn_default_world))
+
+            for (i in OrbotConstants.COUNTRY_CODES.indices) {
+                val locale = Locale("", OrbotConstants.COUNTRY_CODES[i])
+                cList.add(locale.displayCountry)
+
+                if (currentExitNode.contains(OrbotConstants.COUNTRY_CODES[i])) {
+                    selIdx = i + 1
+                }
+            }
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cList)
+            countrySpinner.adapter = adapter
+
+            if (selIdx > 0) {
+                countrySpinner.setSelection(selIdx, true)
+            }
+
+            countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+                var mOldPosition = countrySpinner.selectedItemPosition
+
+                override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+
+                    if (mOldPosition == position) {
+                        return
+                    }
+
+                    mOldPosition = position
+
+                    val country = if (position == 0) {
+                        ""
+                    } else {
+                        OrbotConstants.COUNTRY_CODES[position - 1]
+                    }
+
+                    orbotManager.setExitNode(country)
+                }
+
+                override fun onNothingSelected(parentView: AdapterView<*>) {}
+
+            }
+        }
+    }
+
+    private fun setBridgeSelector() {
+        bridges.setOnValueChangeListener { value ->
+            Log.d(TAG, value)
+            orbotManager.setBridge(OrbotConstants.BRIDGES.getByValue(value))
+        }
+
+        bridges.currentEntryValue = orbotManager.getBridge()
     }
 
     override fun onDestroy() {

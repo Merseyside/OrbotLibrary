@@ -8,9 +8,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.torproject.android.service.TorService
 import org.torproject.android.service.TorServiceConstants
+import org.torproject.android.service.util.Prefs
 
 class OrbotManager private constructor(private val application : Application) {
 
@@ -60,6 +62,10 @@ class OrbotManager private constructor(private val application : Application) {
     private var proxyUtils: ProxyUtils = ProxyUtils()
 
     private var listener : OrbotListener? = null
+
+    init {
+        Prefs.setContext(application)
+    }
 
     private val mLocalBroadcastReceiver = object : BroadcastReceiver() {
 
@@ -178,7 +184,10 @@ class OrbotManager private constructor(private val application : Application) {
         if (torStatus == TorServiceConstants.STATUS_OFF) {
 
             registerReceivers()
-            sendIntentToService(TorServiceConstants.ACTION_START)
+            val startIntent = Intent(application, TorService::class.java)
+            startIntent.action = TorServiceConstants.ACTION_START
+
+            sendIntentToService(startIntent)
         }
     }
 
@@ -199,15 +208,15 @@ class OrbotManager private constructor(private val application : Application) {
         }
     }
 
-    private fun sendIntentToService(action: String) {
-
-        val torService = Intent(application, TorService::class.java)
-        torService.action = action
-        application.startService(torService)
+    private fun sendIntentToService(intent: Intent) {
+        application.startService(intent)
     }
 
     private fun requestTorStatus() {
-        sendIntentToService(TorServiceConstants.ACTION_STATUS)
+        val torStatusIntent = Intent(application, TorService::class.java)
+        torStatusIntent.action = TorServiceConstants.ACTION_STATUS
+
+        sendIntentToService(torStatusIntent)
     }
 
     fun getCurrentStatus() : String {
@@ -222,6 +231,58 @@ class OrbotManager private constructor(private val application : Application) {
 
         if (result != null)
             listener?.onPercentsReceived(result.toInt())
+    }
+
+    @Throws(IllegalArgumentException::class)
+    fun setExitNode(node : String) {
+        var validNode = ""
+
+        if (OrbotConstants.COUNTRY_CODES.contains(node)) {
+            validNode = "{$node}"
+        } else if (node == "") {
+        } else {
+            throw IllegalArgumentException("Node you passed isn't valid")
+        }
+
+        val setNodeIntent = Intent(application, TorService::class.java)
+        setNodeIntent.action = TorServiceConstants.CMD_SET_EXIT
+        setNodeIntent.putExtra("exit", validNode)
+
+        sendIntentToService(setNodeIntent)
+    }
+
+    fun getExitNode() : String = Prefs.getExitNodes()
+
+
+    fun setBridge(bridge : OrbotConstants.BRIDGES) {
+
+        when(bridge) {
+            OrbotConstants.BRIDGES.DIRECTLY -> {
+                Prefs.putBridgesEnabled(false)
+            }
+
+            else -> {
+                Prefs.putBridgesEnabled(true)
+            }
+        }
+
+        Prefs.setBridgesList(bridge.value)
+
+        if (torStatus == TorServiceConstants.STATUS_ON) {
+            val bridgeList = Prefs.getBridgesList()
+            if (bridgeList != null && bridgeList.isNotEmpty()) {
+                requestTorRereadConfig()
+            }
+        }
+    }
+
+    fun getBridge() : String = Prefs.getBridgesList()
+
+    private fun requestTorRereadConfig() {
+        val intent = Intent(application, TorService::class.java)
+        intent.action = TorServiceConstants.CMD_SIGNAL_HUP
+
+        sendIntentToService(intent)
     }
 
 }

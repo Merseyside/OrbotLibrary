@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HorizontalSelectorViewAttrs">
+        <attr name="horizontalSelectorTitle" format="string"/>
+        <attr name="android:entryValues" format="reference"/>
+        <attr name="android:entries" format="reference"/>
+        <attr name="horizontalSelectorTextColor" format="color"/>
+        <attr name="horizontalSelectorButtonColor" format="color"/>
+        <attr name="horizontalSelectorEntryValue" format="string"/>
+        <attr name="horizontalSelectorType" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="image" value="1"/>
+        </attr>
+        <attr name="horizontalSelectorButtons" format="enum">
+            <enum name="arrows" value="0"/>
+        </attr>
+    </declare-styleable>
+</resources>

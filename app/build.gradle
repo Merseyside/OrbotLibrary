@@ -11,8 +11,8 @@ android {
         applicationId "com.upstream.orbotexample"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 21
-        versionName "0.2.1"
+        versionCode 30
+        versionName "0.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -57,6 +57,7 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation project(':library')
+    implementation project(':HorizontalSelectorView')
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"

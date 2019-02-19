@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".SampleActivity"
-        android:padding="16dp">
+<RelativeLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SampleActivity"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
             android:id="@+id/status_tw"
@@ -38,6 +38,22 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/log_tv"
             android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/countrySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.vpnapp.upstream.horizontalselectorview.HorizontalSelectorView
+            android:id="@+id/bridges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:horizontalSelectorTitle="@string/bridges"
+            app:horizontalSelectorButtonColor="@color/colorPrimary"
+            android:entries="@array/bridge_entries"
+            android:entryValues="@array/bridge_entry_values">
+
+        </com.vpnapp.upstream.horizontalselectorview.HorizontalSelectorView>
 
         <Button
                 android:id="@+id/start_stop_button"
