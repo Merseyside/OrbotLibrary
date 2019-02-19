@@ -40,3 +40,16 @@ override fun onDestroy() {
     orbotManager.stopTor()
 }
 ```
+### Nodes
+```
+val currentExitNode = orbotManager.getExitNode() //Get current exit node
+
+orbotManager.setExitNode(country) //Sets new exit node
+```
+
+### Bridges
+```
+orbotManager.setBridge(OrbotConstants.BRIDGES.getByValue(value)) // Sets one of availbale bridges(Directly, Community or Cloud)
+
+orbotManager.getBridge() // Get current bridge
+```
