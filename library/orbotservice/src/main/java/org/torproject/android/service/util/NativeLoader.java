@@ -23,6 +23,7 @@ public class NativeLoader {
         ZipFile zipFile = null;
         InputStream stream = null;
         try {
+            Log.d(TAG, "here");
             zipFile = new ZipFile(context.getApplicationInfo().sourceDir);
             ZipEntry entry = zipFile.getEntry("lib/" + folder + "/" + libName + ".so");
             if (entry == null) {

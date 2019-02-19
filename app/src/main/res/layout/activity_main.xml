@@ -42,7 +42,8 @@
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/countrySpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"/>
 
         <com.vpnapp.upstream.horizontalselectorview.HorizontalSelectorView
             android:id="@+id/bridges"
@@ -55,8 +56,7 @@
 
         </com.vpnapp.upstream.horizontalselectorview.HorizontalSelectorView>
 
-        <Button
-                android:id="@+id/start_stop_button"
+        <Button android:id="@+id/start_stop_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Start orbot"/>
@@ -66,6 +66,11 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:text="Open Conn"/>
+
+        <Button android:id="@+id/new_identity_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Identity"/>
 
     </LinearLayout>
 

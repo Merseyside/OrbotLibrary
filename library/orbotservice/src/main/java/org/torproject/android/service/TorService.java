@@ -559,8 +559,8 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
         }
     }
 
-    protected void logNotice (String msg)
-    {
+    protected void logNotice (String msg) {
+        Log.d(TAG, msg);
         if (msg != null && msg.trim().length() > 0)
         {
             if (Prefs.useDebugLogging())
@@ -1440,6 +1440,7 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
                 {
                     try {
                         Log.d(TAG, "New indentity");
+                        logNotice("Switched to the new identity");
                         conn.signal("NEWNYM");
 
                     }
