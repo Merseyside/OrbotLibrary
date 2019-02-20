@@ -1,25 +1,27 @@
 package com.merseyside.admin.library
 
-interface OrbotConstants {
+class OrbotConstants {
 
     companion object {
-        val STATUS_OFF : String
-            get() = "OFF"
+        const val STATUS_OFF : String = "OFF"
 
-        val STATUS_ON: String
-            get() = "ON"
+        const val STATUS_ON: String = "ON"
 
-        val STATUS_STARTING: String
-            get() = "STARTING"
+        const val STATUS_STARTING: String = "STARTING"
 
-        val STATUS_STOPPING: String
-            get() = "STOPPING"
+        const val STATUS_STOPPING: String = "STOPPING"
 
         val COUNTRY_CODES = arrayOf(
-                "DE", "AT", "SE", "CH", "IS", "CA", "US",
-                "ES", "FR", "BG", "PL", "AU", "BR", "CZ",
-                "DK", "FI", "GB", "HU", "NL", "JP", "RO",
-                "RU", "SG", "SK")
+                "DE", "AT", "SE", "CH", "IS", "CA",
+                "US", "ES", "FR", "BG", "PL", "AU",
+                "BR", "CZ", "DK", "FI", "GB", "HU",
+                "NL", "JP", "RO", "RU", "SG", "SK")
+
+        @JvmStatic
+        fun getCountryCodes() : Array<String> {
+            return COUNTRY_CODES
+        }
+
     }
 
     enum class BRIDGES(val value : String) {DIRECTLY(""), COMMUNITY("obfs4"), CLOUD("meek");

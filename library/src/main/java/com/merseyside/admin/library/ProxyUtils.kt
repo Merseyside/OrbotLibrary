@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import info.guardianproject.netcipher.web.WebkitProxy
 
-class ProxyUtils {
+internal class ProxyUtils {
 
     private val TAG = javaClass.simpleName
 
