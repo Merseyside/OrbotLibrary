@@ -21,8 +21,29 @@ dependencies {
 }
 ```
 ## How to use?
+The better practice is to add OrbotManager instance to your singleton application class.
+
+Your application class
 ```
-private val orbotManager by lazy {OrbotManager.getInstance(application)} 
+override fun onCreate() {
+        super.onCreate()
+
+        instance = this
+
+        initOrbotManager()
+    }
+
+    private fun initOrbotManager() {
+        orbotManager = OrbotManager.Builder(this)
+                .setHostAndPort(OrbotManager.DEFAULT_HOST, OrbotManager.DEFAULT_PORT)
+                .build()
+
+        orbotManager.setLoggingEnable(isLogging = BuildConfig.DEBUG
+        }
+```
+Activity class
+```
+private val orbotManager = MyApplication.getInstance().getOrbotManager() 
 
 override fun onCreate(savedInstanceState : Bundle?) {
     super.onCreate(savedInstanceState)
