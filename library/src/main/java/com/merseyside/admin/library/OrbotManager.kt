@@ -322,6 +322,53 @@ class OrbotManager private constructor(
         sendIntentToService(intent)
     }
 
+    fun setEntryNodes(nodes : String?) {
+
+        nodes?.let {
+            val result : String
+
+            if (!it.isEmpty()) {
+                result = getValidNodes(nodes)
+
+                Prefs.putEntryNodes(result)
+            }
+        }
+    }
+
+    fun getEntryNodes() : String {
+        return Prefs.getEntryNodes()
+    }
+
+    fun setExcludeNodes(nodes : String?) {
+        nodes?.let {
+            val result : String
+
+            if (!it.isEmpty()) {
+                result = getValidNodes(nodes)
+
+                Prefs.putEntryNodes(result)
+            }
+        }
+    }
+
+    fun getExcludeNodes() : String {
+        return Prefs.getExcludeNodes()
+    }
+
+    private fun getValidNodes(nodes : String) : String {
+        var result = nodes
+
+        if (!result.startsWith("{")) {
+            result = "{$result"
+        }
+
+        if (!result.endsWith("}")) {
+            result = "$result}"
+        }
+
+        return result.toUpperCase()
+    }
+
     fun requestNewTorIdentity() {
         val newIdentityIntent = Intent(context, TorService::class.java)
         newIdentityIntent.action = TorServiceConstants.CMD_NEWNYM
