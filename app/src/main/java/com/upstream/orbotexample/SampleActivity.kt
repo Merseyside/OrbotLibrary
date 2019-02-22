@@ -17,7 +17,7 @@ class SampleActivity : AppCompatActivity() {
 
     private val TAG = javaClass.simpleName
 
-    private lateinit var orbotManager : OrbotManager
+    private val orbotManager : OrbotManager = OrbotApplication.instance.getOrbotManager()
 
     private val networkUtils by lazy { NetworkUtils() }
 
@@ -28,7 +28,8 @@ class SampleActivity : AppCompatActivity() {
     }
 
     private fun initTor() {
-        orbotManager = OrbotManager.getInstance(OrbotApplication.getInstance())
+        orbotManager.setLoggingEnable(isLogging = BuildConfig.DEBUG)
+
         orbotManager.setOrbotListener(object : OrbotManager.OrbotListener {
             override fun onPercentsReceived(percents: Int) {
                 if (percents == 100) {
@@ -98,6 +99,14 @@ class SampleActivity : AppCompatActivity() {
                 networkUtils.openHttpConnection("https://www.propub3r6espa33w.onion/") //Put your URL here
             } catch (e : SocketTimeoutException) {
                 Toast.makeText(this, "Socket timeout", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        reconnect_button.setOnClickListener {
+            try {
+                orbotManager.reconnectTor()
+            } catch (e : IllegalStateException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
         }
 
