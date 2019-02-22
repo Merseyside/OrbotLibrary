@@ -25,6 +25,8 @@ public class Prefs {
     private final static String PREF_USE_SYSTEM_IPTABLES = "pref_use_sys_iptables";
     private final static String PREF_USE_VPN = "pref_vpn";
     private final static String PREF_EXIT_NODES = "pref_exit_nodes";
+    private final static String PREF_ENTRANCE_NODES = "pref_entrance_nodes";
+    private final static String PREF_EXCLUDE_NODES = "pref_exclude_nodes";
     
     private static SharedPreferences prefs;
 
@@ -142,5 +144,21 @@ public class Prefs {
     public static void setExitNodes (String exits)
     {
     	putString(PREF_EXIT_NODES,exits);
+    }
+
+    public static void putEntryNodes(String entry_nodes) {
+        putString(PREF_ENTRANCE_NODES, entry_nodes);
+    }
+
+    public static String getEntryNodes() {
+        return prefs.getString(PREF_ENTRANCE_NODES, "");
+    }
+
+    public static void putExcludeNodes(String exclude_nodes) {
+        putString(PREF_EXCLUDE_NODES, exclude_nodes);
+    }
+
+    public static String getExcludeNodes() {
+        return prefs.getString(PREF_EXCLUDE_NODES, "");
     }
 }

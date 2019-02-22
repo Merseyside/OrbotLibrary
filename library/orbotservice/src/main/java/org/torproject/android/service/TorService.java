@@ -1635,7 +1635,7 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
         }
     };
 
-    private boolean processSettingsImpl (StringBuffer extraLines) throws IOException
+    private void processSettingsImpl (StringBuffer extraLines) throws IOException
     {
         logNotice(getString(R.string.updating_settings_in_tor_service));
 
@@ -1796,7 +1796,7 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
         {
             showToolbarNotification (getString(R.string.your_reachableaddresses_settings_caused_an_exception_),ERROR_NOTIFY_ID,R.drawable.ic_stat_notifyerr);
 
-            return false;
+            return;
         }
 
         try
@@ -1820,7 +1820,7 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
             showToolbarNotification (getString(R.string.your_relay_settings_caused_an_exception_),ERROR_NOTIFY_ID,R.drawable.ic_stat_notifyerr);
 
 
-            return false;
+            return;
         }
 
         ContentResolver mCR = getApplicationContext().getContentResolver();
@@ -1868,8 +1868,6 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
 
             client_cookies.close();
         }
-
-        return true;
     }
 
     public static String flattenToAscii(String string) {
