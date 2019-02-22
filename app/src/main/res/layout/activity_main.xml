@@ -67,6 +67,11 @@
                 android:enabled="false"
                 android:text="Open Conn"/>
 
+        <Button android:id="@+id/reconnect_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reconnect"/>
+
         <Button android:id="@+id/new_identity_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

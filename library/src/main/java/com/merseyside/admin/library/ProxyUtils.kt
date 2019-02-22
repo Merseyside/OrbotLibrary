@@ -1,20 +1,17 @@
 package com.merseyside.admin.library;
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
 import info.guardianproject.netcipher.web.WebkitProxy
 
-internal class ProxyUtils {
+internal class ProxyUtils(private val host : String, private val port : Int) {
 
     private val TAG = javaClass.simpleName
 
-    fun initProxy(application: Application) {
-
-        val host = "localhost"
-        val port = 8118
+    fun initProxy(context: Context) {
 
         try {
-            WebkitProxy.setProxy(application.javaClass.name, application.applicationContext, null, host, port)
+            WebkitProxy.setProxy(context.javaClass.name, context, null, host, port)
         } catch (e: Exception) {
             Log.e(TAG, "error enabling web proxying", e)
         }
