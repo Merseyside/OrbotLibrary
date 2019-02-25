@@ -166,7 +166,7 @@ class OrbotManager private constructor(
                 return
             }
 
-            TorServiceConstants.STATUS_ON -> {
+            OrbotConstants.STATUS_ON -> {
                 proxyUtils.initProxy(context)
             }
         }
@@ -194,13 +194,15 @@ class OrbotManager private constructor(
     @Throws(IllegalStateException::class)
     fun startTor() {
 
-        if (torStatus == TorServiceConstants.STATUS_OFF) {
+        if (torStatus == OrbotConstants.STATUS_OFF) {
 
             registerReceivers()
             val startIntent = Intent(context, TorService::class.java)
             startIntent.action = TorServiceConstants.ACTION_START
 
             sendIntentToService(startIntent)
+
+            torStatus = OrbotConstants.STATUS_STARTING
         } else {
             val message = "Tor is already running"
 
@@ -346,7 +348,7 @@ class OrbotManager private constructor(
             if (!it.isEmpty()) {
                 result = getValidNodes(nodes)
 
-                Prefs.putEntryNodes(result)
+                Prefs.putExcludeNodes(result)
             }
         }
     }
