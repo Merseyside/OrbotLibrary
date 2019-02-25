@@ -33,6 +33,8 @@ class OrbotManager private constructor(
         fun onMessageReceived(message : String)
 
         fun onPercentsReceived(percents : Int)
+
+        fun onError(message : String)
     }
 
     inner class DataCount constructor(// data uploaded
@@ -383,11 +385,24 @@ class OrbotManager private constructor(
     }
 
     private fun sendMessage(message : String) {
+
+        if (message.contains("^.+Exception.+$".toRegex())) {
+            sendError(message)
+        } else {
+            if (isLogging) {
+                Log.d(TAG, "Message received: $message")
+            }
+
+            listener?.onMessageReceived(message)
+        }
+    }
+
+    private fun sendError(message : String) {
         if (isLogging) {
-            Log.d(TAG, "Message received: $message")
+            Log.e(TAG, "Error received: $message")
         }
 
-        listener?.onMessageReceived(message)
+        listener?.onError(message)
     }
 
 }

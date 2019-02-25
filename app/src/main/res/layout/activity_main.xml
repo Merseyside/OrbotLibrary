@@ -77,6 +77,11 @@
                 android:layout_height="wrap_content"
                 android:text="New Identity"/>
 
+        <Button android:id="@+id/non_valid_entry_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set non-valid entry nodes"/>
+
     </LinearLayout>
 
     <TextView

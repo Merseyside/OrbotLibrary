@@ -31,6 +31,10 @@ class SampleActivity : AppCompatActivity() {
         orbotManager.setLoggingEnable(isLogging = BuildConfig.DEBUG)
 
         orbotManager.setOrbotListener(object : OrbotManager.OrbotListener {
+            override fun onError(message: String) {
+                Toast.makeText(this@SampleActivity, message, Toast.LENGTH_LONG).show()
+            }
+
             override fun onPercentsReceived(percents: Int) {
                 if (percents == 100) {
                     open_connection_button.isEnabled = true
@@ -112,6 +116,10 @@ class SampleActivity : AppCompatActivity() {
 
         new_identity_button.setOnClickListener {
             orbotManager.requestNewTorIdentity()
+        }
+
+        non_valid_entry_button.setOnClickListener {
+            orbotManager.setEntryNodes("{IS}, *{EU}")
         }
 
         setCountrySpinner()
