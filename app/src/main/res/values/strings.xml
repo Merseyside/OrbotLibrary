@@ -2,6 +2,12 @@
     <string name="application_name" translatable="false">OrbotExample</string>
     <string name="bridges" translatable="false">Bridges</string>
 
+    <string name="start_tor" translatable="false">Start Tor</string>
+    <string name="stop_tor" translatable="false">Stop Tor</string>
+    <string name="reconnect_tor" translatable="false">Reconnect</string>
+    <string name="new_identity" translatable="false">New identity</string>
+    <string name="open_connection" translatable="false">Make request</string>
+
     <!--Entries-->
     <string-array name="bridge_entries">
         <item>Directly</item>

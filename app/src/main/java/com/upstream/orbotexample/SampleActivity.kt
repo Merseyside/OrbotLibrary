@@ -17,6 +17,8 @@ class SampleActivity : AppCompatActivity() {
 
     private val TAG = javaClass.simpleName
 
+    private val URL = "https://www.propub3r6espa33w.onion/"  //Put your URL here
+
     private val orbotManager : OrbotManager = OrbotApplication.instance.getOrbotManager()
 
     private val networkUtils by lazy { NetworkUtils() }
@@ -45,16 +47,14 @@ class SampleActivity : AppCompatActivity() {
                 log_tv.text = message
             }
 
-
             /**
             * Also you can call OrbotManager.getStatus()
             */
-
             override fun onStatusChanged(status: String) {
                 when (status) {
                     OrbotConstants.STATUS_OFF -> {
                         status_tw.text = "Disconnected"
-                        start_stop_button.text = "Start Tor"
+                        start_stop_button.text = getString(R.string.start_tor)
                         open_connection_button.isEnabled = false
                     }
 
@@ -67,7 +67,7 @@ class SampleActivity : AppCompatActivity() {
                     }
 
                     OrbotConstants.STATUS_STARTING -> {
-                        start_stop_button.text = "Stop Tor"
+                        start_stop_button.text = getString(R.string.stop_tor)
                         status_tw.text = "Starting..."
                     }
                 }
@@ -77,10 +77,17 @@ class SampleActivity : AppCompatActivity() {
 
     private fun doLayout() {
         setContentView(R.layout.activity_main)
-        status_tw.text = "Disconnected"
+
+        if (orbotManager.getStatus() == OrbotConstants.STATUS_ON) {
+            start_stop_button.text = getString(R.string.stop_tor)
+            open_connection_button.isEnabled = true
+            status_tw.text = "Connected"
+        } else {
+            status_tw.text = "Disconnected"
+        }
 
         start_stop_button.setOnClickListener {
-            if (orbotManager.getCurrentStatus() == OrbotConstants.STATUS_OFF) {
+            if (orbotManager.getStatus() == OrbotConstants.STATUS_OFF) {
                 orbotManager.startTor()
             }
             else {
@@ -100,7 +107,7 @@ class SampleActivity : AppCompatActivity() {
             })
 
             try {
-                networkUtils.openHttpConnection("https://www.propub3r6espa33w.onion/") //Put your URL here
+                networkUtils.openHttpConnection(URL)
             } catch (e : SocketTimeoutException) {
                 Toast.makeText(this, "Socket timeout", Toast.LENGTH_SHORT).show()
             }
@@ -116,10 +123,6 @@ class SampleActivity : AppCompatActivity() {
 
         new_identity_button.setOnClickListener {
             orbotManager.requestNewTorIdentity()
-        }
-
-        non_valid_entry_button.setOnClickListener {
-            orbotManager.setEntryNodes("{IS}, *{EU}")
         }
 
         setCountrySpinner()
@@ -195,9 +198,4 @@ class SampleActivity : AppCompatActivity() {
         bridges.currentEntryValue = orbotManager.getBridge()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        orbotManager.stopTor()
-    }
 }

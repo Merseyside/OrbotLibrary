@@ -1,9 +1,12 @@
 package com.upstream.orbotexample
 
 import android.app.Application
+import android.util.Log
 import com.merseyside.admin.library.OrbotManager
 
 class OrbotApplication  : Application() {
+
+    private val TAG = javaClass.simpleName
 
     private lateinit var orbotManager : OrbotManager
 
@@ -26,7 +29,6 @@ class OrbotApplication  : Application() {
 
     private fun initOrbotManager() {
         orbotManager = OrbotManager.Builder(this)
-                .setHostAndPort(OrbotManager.DEFAULT_HOST, OrbotManager.DEFAULT_PORT)
                 .build()
 
         orbotManager.setLoggingEnable(isLogging = BuildConfig.DEBUG)

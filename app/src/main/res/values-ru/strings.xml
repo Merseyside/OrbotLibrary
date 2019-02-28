@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_tor" translatable="false">Запустить Тор</string>
+    <string name="stop_tor" translatable="false">Остановить Тор</string>
+    <string name="reconnect_tor" translatable="false">Перезапустить</string>
+    <string name="new_identity" translatable="false">Новая личность</string>
+    <string name="open_connection" translatable="false">Сделать запрос</string>
+
+</resources>
