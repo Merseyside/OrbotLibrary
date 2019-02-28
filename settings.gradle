@@ -11,5 +11,3 @@ project(':libnetcipher').projectDir = new File('library/libnetcipher')
 
 include ':orbotservice'
 project(':orbotservice').projectDir = new File('library/orbotservice')
-
-include ':HorizontalSelectorView'
