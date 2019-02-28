@@ -36,7 +36,7 @@ class OrbotConstants {
                     }
                 }
 
-                throw IllegalArgumentException("No bridge with this value")
+                return DIRECTLY
             }
 
             fun contains(value: String): Boolean {

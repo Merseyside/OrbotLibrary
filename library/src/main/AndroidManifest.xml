@@ -11,8 +11,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
         <service
-            android:name="org.torproject.android.service.TorService"
-            android:enabled="true"
-            android:stopWithTask="false"/>
+            android:name="org.torproject.android.service.TorService" />
     </application>
 </manifest>

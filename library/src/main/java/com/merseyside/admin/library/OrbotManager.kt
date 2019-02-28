@@ -21,11 +21,6 @@ class OrbotManager private constructor(
 
     private val TAG = javaClass.simpleName
 
-    companion object {
-        const val DEFAULT_HOST = "localhost"
-        const val DEFAULT_PORT = 8118
-    }
-
     interface OrbotListener {
 
         fun onStatusChanged(status : String)
@@ -37,8 +32,8 @@ class OrbotManager private constructor(
         fun onError(message : String)
     }
 
-    inner class DataCount constructor(// data uploaded
-            var Upload: Long, // data downloaded
+    inner class DataCount constructor(
+            var Upload: Long,
             var Download: Long
     )
 
@@ -260,10 +255,6 @@ class OrbotManager private constructor(
         sendIntentToService(torStatusIntent)
     }
 
-    fun getCurrentStatus() : String {
-        return torStatus
-    }
-
     private fun getPercents(message : String) {
         val regex = "^.+Bootstrapped\\s(\\d*)%.+$".toRegex()
         val matchResult = regex.find(message)
@@ -329,13 +320,9 @@ class OrbotManager private constructor(
     fun setEntryNodes(nodes : String?) {
 
         nodes?.let {
-            val result : String
+            val result : String = getValidNodes(nodes)
 
-            if (!it.isEmpty()) {
-                result = getValidNodes(nodes)
-
-                Prefs.putEntryNodes(result)
-            }
+            Prefs.putEntryNodes(result)
         }
     }
 
@@ -345,13 +332,9 @@ class OrbotManager private constructor(
 
     fun setExcludeNodes(nodes : String?) {
         nodes?.let {
-            val result : String
+            val result : String = getValidNodes(nodes)
 
-            if (!it.isEmpty()) {
-                result = getValidNodes(nodes)
-
-                Prefs.putExcludeNodes(result)
-            }
+            Prefs.putExcludeNodes(result)
         }
     }
 

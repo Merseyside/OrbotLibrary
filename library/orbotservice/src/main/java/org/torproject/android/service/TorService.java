@@ -78,8 +78,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
-public class TorService extends Service implements TorServiceConstants, OrbotConstants
-{
+public class TorService extends Service implements TorServiceConstants, OrbotConstants {
+
+    public final static String TAG = "TorService";
 
     private String mCurrentStatus = STATUS_OFF;
 
@@ -284,23 +285,6 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
                         .setContentTitle(getString(R.string.app_name))
                         .setSmallIcon(R.drawable.ic_stat_tor);
 
-                //mNotifyBuilder.setContentIntent(pendIntent);
-
-                /**
-                 //Restart intent
-                 Intent yesReceive = new Intent();
-                 yesReceive.setAction("Restart");
-                 PendingIntent pendingIntentYes = PendingIntent.getBroadcast(this, 12345, yesReceive, PendingIntent.FLAG_UPDATE_CURRENT);
-                 mNotifyBuilder.addAction(R.drawable.ic_stat_tor_off, "Restart", pendingIntentYes);
-
-
-                 //Maybe intent
-                 Intent maybeReceive = new Intent();
-                 maybeReceive.setAction("Identity");
-                 PendingIntent pendingIntentMaybe = PendingIntent.getBroadcast(this, 12345, maybeReceive, PendingIntent.FLAG_UPDATE_CURRENT);
-                 mNotifyBuilder.addAction(R.drawable.ic_stat_tor_xfer, "New Identity", pendingIntentMaybe);
-                 **/
-
             }
 
         }
@@ -325,51 +309,6 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
         mNotifyBuilder.setCategory(Notification.CATEGORY_SERVICE);
 
         mNotification = mNotifyBuilder.build();
-
-        if (Build.VERSION.SDK_INT >= 16 && Prefs.expandedNotifications()) {
-            // Create remote view that needs to be set as bigContentView for the notification.
-            RemoteViews expandedView = new RemoteViews(this.getPackageName(),
-                    R.layout.layout_notification_expanded);
-
-            StringBuffer sbInfo = new StringBuffer();
-
-            if (notifyType == NOTIFY_ID)
-                expandedView.setTextViewText(R.id.text, notifyMsg);
-            else
-            {
-                expandedView.setTextViewText(R.id.info, notifyMsg);
-            }
-
-            if (mEventHandler != null && mEventHandler.getNodes().size() > 0)
-            {
-                Set<String> itBuiltNodes = mEventHandler.getNodes().keySet();
-                for (String key : itBuiltNodes)
-                {
-                    TorEventHandler.Node node = mEventHandler.getNodes().get(key);
-
-                    if (node.ipAddress != null)
-                    {
-                        sbInfo.append(node.ipAddress);
-
-                        if (node.country != null)
-                            sbInfo.append(' ').append(node.country);
-
-                        if (node.organization != null)
-                            sbInfo.append(" (").append(node.organization).append(')');
-
-                        sbInfo.append('\n');
-                    }
-
-                }
-
-                expandedView.setTextViewText(R.id.text2, sbInfo.toString());
-            }
-
-            expandedView.setTextViewText(R.id.title, getString(R.string.app_name));
-
-            expandedView.setImageViewResource(R.id.icon, icon);
-            mNotification.bigContentView = expandedView;
-        }
 
         if (Prefs.persistNotifications() && (!mNotificationShowing))
         {
@@ -398,24 +337,23 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
         return Service.START_STICKY;
     }
 
-    private class IncomingIntentRouter implements Runnable
-    {
+    private class IncomingIntentRouter implements Runnable {
         Intent mIntent;
 
-        public IncomingIntentRouter (Intent intent)
-        {
+        IncomingIntentRouter(Intent intent) {
             mIntent = intent;
         }
 
         public void run() {
 
-            while (!isTorUpgradeAndConfigComplete)
-            {
+            while (!isTorUpgradeAndConfigComplete) {
                 try { Thread.sleep (500);}
                 catch (Exception e){}
             }
 
             String action = mIntent.getAction();
+
+            Log.d(TAG, "intent " + action);
 
             if (action != null) {
                 if (action.equals(ACTION_START)) {
@@ -442,19 +380,19 @@ public class TorService extends Service implements TorServiceConstants, OrbotCon
                     setExitNode(mIntent.getStringExtra("exit"));
 
                 } else {
-                    Log.w(OrbotConstants.TAG, "unhandled TorService Intent: " + action);
+                    Log.w(TAG, "unhandled TorService Intent: " + action);
                 }
             }
         }
     }
 
-    @Override
-    public void onTaskRemoved(Intent rootIntent){
-        Log.d(OrbotConstants.TAG,"task removed");
-        Intent intent = new Intent( this, DummyActivity.class );
-        intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-        startActivity( intent );
-    }
+//    @Override
+//    public void onTaskRemoved(Intent rootIntent) {
+//        Log.d(TAG,"task removed");
+//        Intent intent = new Intent( this, DummyActivity.class );
+//        intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+//        startActivity( intent );
+//    }
 
     @Override
     public void onDestroy() {

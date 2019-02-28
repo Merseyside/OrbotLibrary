@@ -59,28 +59,23 @@
         <Button android:id="@+id/start_stop_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Start orbot"/>
+                android:text="@string/start_tor"/>
 
         <Button android:id="@+id/open_connection_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:text="Open Conn"/>
+                android:text="@string/open_connection"/>
 
         <Button android:id="@+id/reconnect_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reconnect"/>
+                android:text="@string/reconnect_tor"/>
 
         <Button android:id="@+id/new_identity_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Identity"/>
-
-        <Button android:id="@+id/non_valid_entry_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set non-valid entry nodes"/>
+                android:text="@string/new_identity"/>
 
     </LinearLayout>
 
