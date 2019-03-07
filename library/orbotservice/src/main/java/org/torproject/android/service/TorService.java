@@ -34,13 +34,13 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.provider.BaseColumns;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.sufficientlysecure.rootcommands.Shell;
 import org.sufficientlysecure.rootcommands.command.SimpleCommand;
 import org.torproject.android.control.ConfigEntry;

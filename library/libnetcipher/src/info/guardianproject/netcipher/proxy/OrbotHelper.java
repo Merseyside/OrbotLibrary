@@ -1,12 +1,12 @@
 
 package info.guardianproject.netcipher.proxy;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -105,7 +105,7 @@ public class OrbotHelper implements ProxyHelper {
         }
     }
 
-    public static void requestHiddenServiceOnPort(Activity activity, int port) {
+    public static void requestHiddenServiceOnPort(AppCompatActivity activity, int port) {
         Intent intent = new Intent(ACTION_REQUEST_HS);
         intent.setPackage(ORBOT_PACKAGE_NAME);
         intent.putExtra("hs_port", port);
@@ -143,7 +143,7 @@ public class OrbotHelper implements ProxyHelper {
     }
 
 
-    public static boolean requestShowOrbotStart(Activity activity) {
+    public static boolean requestShowOrbotStart(AppCompatActivity activity) {
         if (OrbotHelper.isOrbotInstalled(activity)) {
             /*if (!OrbotHelper.isOrbotRunning(activity)) {
                 Intent intent = getShowOrbotStartIntent();

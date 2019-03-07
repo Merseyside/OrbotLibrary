@@ -7,8 +7,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.os.Message
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.torproject.android.service.TorService
 import org.torproject.android.service.TorServiceConstants
 import org.torproject.android.service.util.Prefs

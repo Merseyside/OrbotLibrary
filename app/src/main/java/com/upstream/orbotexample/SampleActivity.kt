@@ -1,12 +1,12 @@
 package com.upstream.orbotexample
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.merseyside.admin.library.OrbotConstants
 import com.merseyside.admin.library.OrbotManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -126,7 +126,7 @@ class SampleActivity : AppCompatActivity() {
         }
 
         setCountrySpinner()
-        setBridgeSelector()
+        //setBridgeSelector()
     }
 
     private fun setCountrySpinner() {
@@ -189,13 +189,13 @@ class SampleActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBridgeSelector() {
-        bridges.setOnValueChangeListener { value ->
-            Log.d(TAG, value)
-            orbotManager.setBridge(OrbotConstants.BRIDGES.getByValue(value))
-        }
-
-        bridges.currentEntryValue = orbotManager.getBridge()
-    }
+//    private fun setBridgeSelector() {
+//        bridges.setOnValueChangeListener { value ->
+//            Log.d(TAG, value)
+//            orbotManager.setBridge(OrbotConstants.BRIDGES.getByValue(value))
+//        }
+//
+//        bridges.currentEntryValue = orbotManager.getBridge()
+//    }
 
 }

@@ -1,6 +1,22 @@
 
 package info.guardianproject.netcipher.web;
 
+import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Proxy;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.ArrayMap;
+import android.util.Log;
+import android.webkit.WebView;
+import org.apache.http.HttpHost;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -10,23 +26,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-
-import org.apache.http.HttpHost;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Proxy;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Parcelable;
-import android.util.ArrayMap;
-import android.util.Log;
-import android.webkit.WebView;
 
 public class WebkitProxy {
 
@@ -779,12 +778,12 @@ private static Object getFieldValueSafely(Field field, Object classInstance) thr
 
     }
 
-    public static AlertDialog initOrbot(Activity activity,
-            CharSequence stringTitle,
-            CharSequence stringMessage,
-            CharSequence stringButtonYes,
-            CharSequence stringButtonNo,
-            CharSequence stringDesiredBarcodeFormats) {
+    public static AlertDialog initOrbot(AppCompatActivity activity,
+                                        CharSequence stringTitle,
+                                        CharSequence stringMessage,
+                                        CharSequence stringButtonYes,
+                                        CharSequence stringButtonNo,
+                                        CharSequence stringDesiredBarcodeFormats) {
         Intent intentScan = new Intent("org.torproject.android.START_TOR");
         intentScan.addCategory(Intent.CATEGORY_DEFAULT);
 
@@ -797,7 +796,7 @@ private static Object getFieldValueSafely(Field field, Object classInstance) thr
         }
     }
 
-    private static AlertDialog showDownloadDialog(final Activity activity,
+    private static AlertDialog showDownloadDialog(final AppCompatActivity activity,
             CharSequence stringTitle,
             CharSequence stringMessage,
             CharSequence stringButtonYes,

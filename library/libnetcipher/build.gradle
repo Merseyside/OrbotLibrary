@@ -40,6 +40,7 @@ dependencies {
     // If you want to fetch these from Maven, uncomment these lines and change
     // the *.jar depend to exclude these libs:
     implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }
 
 repositories {
