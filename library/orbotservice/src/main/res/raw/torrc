@@ -6,9 +6,3 @@ DNSPort 0
 TransPort 0
 CookieAuthentication 1
 DisableNetwork 1
-
-ORPort 9001
-BridgeRelay 1
-ExtORPort auto
-ContactInfo Russia, Novosibirsk
-Nickname Mersey
