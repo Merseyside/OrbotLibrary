@@ -343,17 +343,22 @@ class OrbotManager private constructor(
     }
 
     private fun getValidNodes(nodes : String) : String {
-        var result = nodes
+        if (!nodes.isEmpty()) {
 
-        if (!result.startsWith("{")) {
-            result = "{$result"
+            var result = nodes
+
+            if (!result.startsWith("{")) {
+                result = "{$result"
+            }
+
+            if (!result.endsWith("}")) {
+                result = "$result}"
+            }
+
+            return result.toUpperCase()
+        } else {
+            return nodes
         }
-
-        if (!result.endsWith("}")) {
-            result = "$result}"
-        }
-
-        return result.toUpperCase()
     }
 
     fun requestNewTorIdentity() {
