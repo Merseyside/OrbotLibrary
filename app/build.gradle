@@ -11,8 +11,8 @@ android {
         applicationId "com.upstream.orbotexample"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 45
-        versionName "0.4.5-appcompat"
+        versionCode 46
+        versionName "0.4.6-appcompat"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
